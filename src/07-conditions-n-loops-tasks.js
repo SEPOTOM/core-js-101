@@ -525,8 +525,44 @@ function getMatrixProduct(m1, m2) {
  *    [    ,   ,    ]]
  *
  */
-function evaluateTicTacToePosition(/* position */) {
-  throw new Error('Not implemented');
+function evaluateTicTacToePosition(position) {
+  function getRow(index) {
+    return position[index];
+  }
+  function getColumn(index) {
+    const result = [];
+    for (let i = 0; i < position.length; i += 1) {
+      result.push(position[i][index]);
+    }
+    return result;
+  }
+  function isO(val) {
+    return val === '0';
+  }
+  function isX(val) {
+    return val === 'X';
+  }
+  for (let i = 0; i < 3; i += 1) {
+    const row = getRow(i);
+    if (row.every(isO) && row.length === 3) return '0';
+    if (row.every(isX) && row.length === 3) return 'X';
+    const column = getColumn(i);
+    if (column.every(isO) && column.length === 3) return '0';
+    if (column.every(isX) && column.length === 3) return 'X';
+  }
+  let diagonal = [];
+  for (let i = 0; i < 3; i += 1) {
+    diagonal.push(position[i][i]);
+  }
+  if (diagonal.every(isO) && diagonal.length === 3) return '0';
+  if (diagonal.every(isX) && diagonal.length === 3) return 'X';
+  diagonal = [];
+  for (let i = 2, k = 0; i >= 0; i -= 1, k += 1) {
+    diagonal.push(position[k][i]);
+  }
+  if (diagonal.every(isO) && diagonal.length === 3) return '0';
+  if (diagonal.every(isX) && diagonal.length === 3) return 'X';
+  return undefined;
 }
 
 
